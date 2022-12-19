@@ -1,26 +1,20 @@
+import os
+import datetime
+
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource
-import datetime
 from flask_migrate import Migrate
-import env
-
-PG_HOST = env.PG_HOST
-PG_DB = env.PG_DB
-PG_USER = env.PG_USER
-PG_PASSWORD = env.PG_PASSWORD
 
 
 app = Flask(__name__)
-app.config[
-    "SQLALCHEMY_DATABASE_URI"
-] = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:5432/{PG_DB}"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DB_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-migrate = Migrate(app,db)
+migrate = Migrate(app, db)
 api = Api(app)
 
 
@@ -100,4 +94,3 @@ api.add_resource(FilterResource, "/filter")
 
 if __name__ == "__main__":
     app.run(debug=True)
-
