@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "zalo"
+name = "vuanem-zalo-oa"
 version = "0.1.0"
 description = ""
-authors = ["Bui Thu Ha <thuhak22ba@gmail.com>"]
+authors = ["Bui Thu Ha <thuhak22ba@gmail.com>", "HM <hieumdd@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -13,8 +13,8 @@ SQLAlchemy = "^1.4.45"
 flask-marshmallow = "^0.14.0"
 Flask-RESTful = "^0.3.9"
 flask-sqlalchemy = "^3.0.2"
-psycopg2 = "^2.9.5"
 Flask-Migrate = "^4.0.0"
+psycopg2-binary = "^2.9.5"
 
 
 [build-system]
