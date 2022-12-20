@@ -5,6 +5,9 @@ description = ""
 authors = ["Bui Thu Ha <thuhak22ba@gmail.com>", "HM <hieumdd@gmail.com>"]
 readme = "README.md"
 
+[tool.poetry.scripts]
+dev = "uvicorn app.main:app --reload"
+
 [tool.poetry.dependencies]
 python = "~3.9"
 Flask = "^2.2.2"
@@ -16,8 +19,9 @@ Flask-Migrate = "^4.0.0"
 psycopg2-binary = "^2.9.5"
 python-dotenv = "^0.21.0"
 fastapi = "^0.88.0"
-uvicorn = "^0.20.0"
+uvicorn = { extras = ["standard"], version = "^0.20.0" }
 pydantic = "^1.10.2"
+Jinja2 = "^3.1.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
