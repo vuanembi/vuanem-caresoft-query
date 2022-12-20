@@ -24,3 +24,10 @@ def delete_user(user_id):
             {"deleted_date": func.now()}
         )
         session.commit()
+
+
+def get_user(user_id, phone):
+    with Session() as session:
+        user = {"user_id": user_id, "phone": phone}
+        users = session.query(ZaloUser).filter_by(**user)
+        return users
