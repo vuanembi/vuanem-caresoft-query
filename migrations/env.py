@@ -6,15 +6,19 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
+from app.database.base import Base
+from app.zalo.models import *
+
 load_dotenv()
 
+print(os.getenv("DB_URL", ""))
 config = context.config
-config.set_main_option("sqlalchemy.url", os.environ.get("DB_URL", ""))
+config.set_main_option("sqlalchemy.url", os.getenv("DB_URL", ""))
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = None
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:

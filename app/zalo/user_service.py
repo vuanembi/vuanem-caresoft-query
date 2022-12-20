@@ -1,7 +1,7 @@
 from sqlalchemy.sql import func
 
 from app.database.base import Session
-from app.zalo.user_model import ZaloUser
+from app.zalo.models.zalo_user import ZaloUser
 
 
 def add_user(user_id, phone):
