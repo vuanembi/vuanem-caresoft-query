@@ -1,18 +1,14 @@
-import os
 from logging.config import fileConfig
 
-from dotenv import load_dotenv
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-from app.database.base import Base
+from app.database.base import DB_URL, Base
 from app.zalo.models import *
 
-load_dotenv()
-
 config = context.config
-config.set_main_option("sqlalchemy.url", os.getenv("DB_URL", ""))
+config.set_main_option("sqlalchemy.url", DB_URL)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
