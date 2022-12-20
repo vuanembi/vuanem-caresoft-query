@@ -28,8 +28,15 @@ def delete_user(user_id):
         session.commit()
 
 
-def get_user(user: UserCreate):
+def get_user_by_id(id: int):
     with Session() as session:
-        user = {"user_id": user.user_id, "phone": user.phone}
-        users = session.query(ZaloUser).filter_by(**user)
-        return users
+        user = session.query(ZaloUser).filter(ZaloUser.id == id)
+        return user
+
+
+def get_user_by_userid_or_phone(info: str):
+    with Session() as session:
+        user = session.query(ZaloUser).filter(
+            (ZaloUser.user_id == info) | (ZaloUser.phone_id == info)
+        )
+        return user
