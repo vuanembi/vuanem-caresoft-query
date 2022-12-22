@@ -11,6 +11,7 @@ concurrency: ${{ github.ref }}
 
 env:
   IMAGE: us-docker.pkg.dev/voltaic-country-280607/gcr.io/vuanem-zalo-oa:${{ github.ref_name }}
+  APP_URL: https://vuanem-zalo-oa-${{ github.ref_name }}-lx3iji7qaq-uc.a.run.app
   SERVICE: vuanem-zalo-oa-${{ github.ref_name }}
   ENV_FILE: env.yaml
   GCP_SA: bivuanem@voltaic-country-280607.iam.gserviceaccount.com
@@ -45,10 +46,13 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - run: |
-          echo "APP_URL: ${{ secrets.APP_URL }}" >> ${{ env.ENV_FILE }}
+          echo "APP_URL: ${{ env.APP_URL }}" >> ${{ env.ENV_FILE }}
+
           echo "DB_URL: ${{ secrets.DB_URL }}" >> ${{ env.ENV_FILE }}
+
           echo "REDIS_HOST: ${{ secrets.REDIS_HOST }}" >> ${{ env.ENV_FILE }}
           echo "REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}" >> ${{ env.ENV_FILE }}
+          
           echo "ZALO_CLIENT_SECRET: ${{ secrets.ZALO_CLIENT_SECRET }}" >> ${{ env.ENV_FILE }}
 
       - run: >-
