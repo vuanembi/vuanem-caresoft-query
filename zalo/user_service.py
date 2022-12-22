@@ -1,9 +1,8 @@
 from sqlalchemy.sql import func
 
-from app.database.base import Session
-from app.zalo.user_model import ZaloUser
-
-from app.zalo.user_schema import UserCreate
+from database.base import Session
+from zalo.user_model import ZaloUser
+from zalo.user_schema import UserCreate
 
 
 def add_user(user: UserCreate):
@@ -41,10 +40,12 @@ def get_user_by_userid_or_phone(info: str):
         )
         return user
 
+
 def get_user_by_user_id(user_id: str) -> ZaloUser:
     with Session() as session:
         user = session.query(ZaloUser).filter(ZaloUser.user_id == user_id)
         return user
+
 
 def get_user_by_phone(phone: str) -> ZaloUser:
     with Session() as session:
