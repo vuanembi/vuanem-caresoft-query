@@ -52,7 +52,7 @@ jobs:
 
           echo "REDIS_HOST: ${{ secrets.REDIS_HOST }}" >> ${{ env.ENV_FILE }}
           echo "REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}" >> ${{ env.ENV_FILE }}
-          
+
           echo "ZALO_CLIENT_SECRET: ${{ secrets.ZALO_CLIENT_SECRET }}" >> ${{ env.ENV_FILE }}
 
       - run: >-
@@ -61,6 +61,6 @@ jobs:
           --cpu=2
           --platform=managed
           --service-account=${{ env.GCP_SA }}
-          --region=${{ env.REGION }}
+          --region=us-central1
           --timeout=120
           --env-vars-file=${{ env.ENV_FILE }}
