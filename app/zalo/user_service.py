@@ -40,3 +40,13 @@ def get_user_by_userid_or_phone(info: str):
             (ZaloUser.user_id == info) | (ZaloUser.phone_id == info)
         )
         return user
+
+def get_user_by_user_id(user_id: str) -> ZaloUser:
+    with Session() as session:
+        user = session.query(ZaloUser).filter(ZaloUser.user_id == user_id)
+        return user
+
+def get_user_by_phone(phone: str) -> ZaloUser:
+    with Session() as session:
+        user = session.query(ZaloUser).filter(ZaloUser.phone == phone)
+        return user
