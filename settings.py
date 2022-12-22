@@ -14,7 +14,7 @@ class Settings:
     REDIS_HOST: str = os.getenv("REDIS_HOST", "")
     REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
 
-    ZALO_CLIENT_ID: str = os.getenv("ZALO_CLIENT_ID", "")
+    ZALO_CLIENT_ID: str = "533162694613946571"
     ZALO_CLIENT_SECRET: str = os.getenv("ZALO_CLIENT_SECRET", "")
 
 

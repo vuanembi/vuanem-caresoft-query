@@ -1,0 +1,16 @@
+services:
+  app:
+    container_name: vuanem-zalo-oa
+    image: us-docker.pkg.dev/${PROJECT_ID}/gcr.io/vuanem-zalo-oa:${GH_REF}
+    build:
+      context: .
+    volumes:
+      - ./service-account.json:/tmp/service-account.json
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/service-account.json
+      K_SERVICE: dev
+      K_CONFIGURATION: dev
+      K_REVISION: dev-00001
+    ports:
+      - '8080:8080'
+    user: '0'
