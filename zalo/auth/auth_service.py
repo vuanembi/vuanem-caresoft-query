@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from furl import furl
 import httpx
 
-from .auth_interface import AccessToken
+from .auth_schema import AccessToken
 from .auth_repository import (
     AUTHORIZATION_URL,
     exchange_code_for_token,
@@ -28,10 +28,10 @@ def create_authorization_url():
 def authorization_callback(code: str):
     token: AccessToken = exchange_code_for_token(code)
 
-    store_access_token(token["access_token"], int(token["expires_in"]))
-    store_refresh_token(token["refresh_token"])
+    store_access_token(token.access_token, int(token.expires_in))
+    store_refresh_token(token.refresh_token)
 
-    return token
+    return token.dict()
 
 
 def create_zalo_client():
@@ -43,6 +43,10 @@ def create_zalo_client():
         if not refresh_token:
             raise HTTPException(500, "refresh token expired")
 
-        access_token = refresh_access_token(refresh_token)
+        token = refresh_access_token(refresh_token)
+
+        store_access_token(token.access_token, int(token.expires_in))
+
+        access_token = token.access_token
 
     return httpx.Client(headers={"access_token": access_token})

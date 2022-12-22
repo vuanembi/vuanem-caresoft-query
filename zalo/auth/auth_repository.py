@@ -4,7 +4,7 @@ from datetime import timedelta
 import httpx
 
 from settings import settings
-from .auth_interface import AccessToken
+from .auth_schema import AccessToken
 from redis_module import redis
 
 ACCESS_TOKEN_KEY = "zalo:access-token"
@@ -52,10 +52,10 @@ def exchange_code_for_token(code: str) -> AccessToken:
 
     response.raise_for_status()
 
-    return response.json()
+    return AccessToken.parse_obj(response.json())
 
 
-def refresh_access_token(refresh_token: str):
+def refresh_access_token(refresh_token: str) -> AccessToken:
     response = httpx.request(
         method="POST",
         url=TOKEN_URL,
@@ -72,4 +72,4 @@ def refresh_access_token(refresh_token: str):
 
     response.raise_for_status()
 
-    return response.json()
+    return AccessToken.parse_obj(response.json())
