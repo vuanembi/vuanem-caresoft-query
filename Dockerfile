@@ -1,6 +1,4 @@
-FROM python:3.10-slim as builder
-
-RUN pip install poetry
+FROM python:3.9-slim as builder
 
 WORKDIR /app
 
@@ -8,11 +6,11 @@ COPY poetry.lock pyproject.toml /app/
 
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
-RUN poetry install --without root,dev --no-interaction --no-ansi
+RUN pip install poetry && poetry install --without root,dev --no-interaction --no-ansi
 
 #
 
-FROM python:3.10-slim
+FROM python:3.9-slim
 
 WORKDIR /app
 

@@ -64,6 +64,7 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
 tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
+typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -589,6 +590,7 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 anyio = ">=3.4.0,<5"
+typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
@@ -694,8 +696,13 @@ python-versions = ">=3.7"
 
 [metadata]
 lock-version = "1.1"
+<<<<<<< HEAD
 python-versions = "~3.10"
 content-hash = "373ae512bd1b96a82f633ab3d88a0974a7ec20080aabc7271b0e68bf4db2f89a"
+=======
+python-versions = "~3.9"
+content-hash = "b5d107905c7382455e2545bb1062fb549c5fa6a02aa7a7e6b9f9d9b87e0d6768"
+>>>>>>> revert: Revert python3.10 upgrade
 
 [metadata.files]
 anyio = [
