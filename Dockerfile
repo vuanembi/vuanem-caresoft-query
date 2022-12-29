@@ -2,7 +2,7 @@ FROM python:3.9-slim as builder
 
 WORKDIR /app
 
-COPY poetry.lock pyproject.toml /app/
+COPY poetry.lock pyproject.toml ./
 
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
