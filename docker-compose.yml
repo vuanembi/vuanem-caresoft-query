@@ -1,7 +1,7 @@
 services:
   app:
-    container_name: vuanem-zalo-oa
-    image: us-docker.pkg.dev/${PROJECT_ID}/gcr.io/vuanem-zalo-oa:${GH_REF}
+    container_name: vuanem-caresoft-query
+    image: us-docker.pkg.dev/${PROJECT_ID}/gcr.io/vuanem-caresoft-query:${GH_REF}
     build:
       context: .
     volumes:

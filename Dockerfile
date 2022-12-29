@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim as builder
 
 RUN pip install poetry
 
@@ -6,11 +6,22 @@ WORKDIR /app
 
 COPY poetry.lock pyproject.toml /app/
 
-ENV POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
-RUN poetry install --no-dev --no-root --no-interaction --no-ansi
+RUN poetry install --without root,dev --no-interaction --no-ansi
 
-COPY . /app
+#
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY . .
+COPY --from=builder /app/.venv ./.venv
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PATH="/app/.venv/bin:$PATH"
 
 EXPOSE 8080
 
