@@ -64,6 +64,7 @@ mypy-extensions = ">=0.4.3"
 pathspec = ">=0.9.0"
 platformdirs = ">=2"
 tomli = {version = ">=1.1.0", markers = "python_full_version < \"3.11.0a7\""}
+typing-extensions = {version = ">=3.10.0.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 colorama = ["colorama (>=0.4.3)"]
@@ -532,6 +533,7 @@ python-versions = ">=3.7"
 
 [package.dependencies]
 anyio = ">=3.4.0,<5"
+typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [package.extras]
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart", "pyyaml"]
@@ -624,8 +626,8 @@ python-versions = ">=3.7"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "~3.10"
-content-hash = "3ff4e86024c92c40088a21d072303116c84e8f48e9b648bd8f6671eaeecceb94"
+python-versions = "~3.9"
+content-hash = "b5d107905c7382455e2545bb1062fb549c5fa6a02aa7a7e6b9f9d9b87e0d6768"
 
 [metadata.files]
 anyio = [
