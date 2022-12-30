@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h2>Thông tin Khách hàng</h2>
+        {% for dict_item in res %}
+            {% for key, value in dict_item.items() %}
+                <h1>{{key}}: {{value}}</h1>
+            {% endfor %}
+        {% endfor %}
+    </body>
+</html>
