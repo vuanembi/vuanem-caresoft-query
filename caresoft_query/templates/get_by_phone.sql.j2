@@ -1,0 +1,16 @@
+SELECT
+    *
+FROM
+    (SELECT
+        Customer.lastName, 
+        Customer.email, 
+        Customer.phone, 
+        Customer.custentity_dob, 
+        Customer.custentity_tei_loyaltyremainingpointval,
+        CUSTOMRECORD_TBT_LOYALTY_CUST_GRP.name,
+        Customer.dateCreated  
+    FROM Customer 
+        LEFT JOIN CUSTOMRECORD_TBT_LOYALTY_CUST_GRP 
+        ON Customer.custentity_tbt_loyalty_grp = CUSTOMRECORD_TBT_LOYALTY_CUST_GRP.id
+    WHERE Customer.phone = '{{phone}}')
+    ORDER BY dateCreated ASC
