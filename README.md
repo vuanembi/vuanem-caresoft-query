@@ -1,3 +1,3 @@
-# vuanem-zalo-oa
+# vuanem-caresoft-query
 
-![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif) ![lmao](https://media4.giphy.com/media/tbyi455ahTA6A/giphy.gif)
+[![Cloud Run](https://github.com/vuanembi/vuanem-caresoft-query/actions/workflows/cloud-run.yaml/badge.svg)](https://github.com/vuanembi/vuanem-caresoft-query/actions/workflows/cloud-run.yaml)
