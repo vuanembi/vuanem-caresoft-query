@@ -12,7 +12,16 @@ responses = {
 @controller.get(
     "/query/customer/",
     response_model=list[dto.CustomerResponse],
-    responses={**responses},  # type: ignore
+    responses={**responses},
 )
-def get_customer_by_phone(phone: str):
+def get_customer(phone: str):
     return service.get_customer_by_phone(phone)
+
+
+@controller.get(
+    "/query/order/",
+    response_model=list[dto.OrderBase],
+    responses={**responses},
+)
+def get_orders(customer_id: int):
+    return service.get_orders_by_customer(customer_id)

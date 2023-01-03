@@ -11,3 +11,8 @@ class CustomerResponse(BaseModel):
     loyalty_points: Optional[str]
     name: Optional[str]
     phone: Optional[str]
+
+
+class OrderBase(BaseModel):
+    id: Optional[int]
+    tranid: Optional[str]
