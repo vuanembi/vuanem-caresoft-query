@@ -15,7 +15,7 @@ def create_client() -> OAuth1Client:
         token_secret=settings.NS_TOKEN_SECRET,
         realm=settings.NS_ACCOUNT_ID,
         force_include_body=True,
-        base_url=f"https://{settings.NS_ACCOUNT_ID}.suitetalk.api.netsuite.com/services/rest",
+        base_url=settings.NS_RESTLET_URL,
     )
 
 
@@ -25,7 +25,7 @@ def query_suiteql(sql: str) -> list[dict]:
     def _request(client: OAuth1Client, offset: int = 0):
         response = client.request(
             method="POST",
-            url="query/v1/suiteql",
+            url="/query/v1/suiteql",
             headers={"Prefer": "transient", "Content-Type": "application/json"},
             params={"limit": limit, "offset": offset},
             json={"q": sql},
