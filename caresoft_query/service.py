@@ -18,6 +18,7 @@ def get_customer_by_phone(phone: str) -> list:
             name=row.get("lastname"),
             email=row.get("email"),
             phone=row.get("phone"),
+            customer_id=row.get("id"),
             date_of_birth=row.get("custentity_dob"),
             loyalty_points=row.get("custentity_tei_loyaltyremainingpointval"),
             loyalty_group=row.get("name"),
