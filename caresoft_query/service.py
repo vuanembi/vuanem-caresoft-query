@@ -1,15 +1,16 @@
-from netsuite.service import run_suiteql_query, netsuite_session
 from jinja2 import Environment, FileSystemLoader
 
+from netsuite.service import query_suiteql
 from caresoft_query.dto import CustomerResponse
 
 ENVIRONMENT = Environment(loader=FileSystemLoader("./caresoft_query/templates"))
 
 
-def get_user_by_phone(phone: str) -> list:
+def get_customer_by_phone(phone: str) -> list:
     sql = ENVIRONMENT.get_template("get_by_phone.sql.j2").render(phone=phone)
-    with netsuite_session() as session:
-        data = run_suiteql_query(session, sql)
+
+    data = query_suiteql(sql)
+
     return [
         CustomerResponse(
             name=row.get("lastname"),
