@@ -1,13 +1,15 @@
+from pathlib import Path
+
 from jinja2 import Environment, FileSystemLoader
 
 from netsuite.service import query_suiteql
 from caresoft_query.dto import CustomerResponse
 
-ENVIRONMENT = Environment(loader=FileSystemLoader("./caresoft_query/templates"))
+ENVIRONMENT = Environment(loader=FileSystemLoader(f"{Path(__file__).parent}/templates"))
 
 
 def get_customer_by_phone(phone: str) -> list:
-    sql = ENVIRONMENT.get_template("get_by_phone.sql.j2").render(phone=phone)
+    sql = ENVIRONMENT.get_template("get-customer-by-phone.sql.j2").render(phone=phone)
 
     data = query_suiteql(sql)
 
