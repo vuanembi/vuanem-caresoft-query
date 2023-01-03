@@ -5,4 +5,5 @@ select top 10
 from
 	transaction
 where transaction.entity = {{customer_id}} and substr(transaction.tranId,1,2)='SO'
-
+order by
+	tranDate asc
