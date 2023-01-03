@@ -1,11 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 
-from caresoft_query.dto import CustomerResponse
-from caresoft_query.service import get_customer_by_phone
+from caresoft_query import dto, service
 
-controller = APIRouter()
+controller = APIRouter(tags=["Customer"])
+
+responses = {
+    status.HTTP_500_INTERNAL_SERVER_ERROR: {"description": "NetSuite Error"},
+}
 
 
-@controller.get("/query/customer/", response_model=list[CustomerResponse])
-def get_customer(phone: str):
-    return get_customer_by_phone(phone)
+@controller.get(
+    "/query/customer/",
+    response_model=list[dto.CustomerResponse],
+    responses={**responses},  # type: ignore
+)
+def get_customer_by_phone(phone: str):
+    return service.get_customer_by_phone(phone)
