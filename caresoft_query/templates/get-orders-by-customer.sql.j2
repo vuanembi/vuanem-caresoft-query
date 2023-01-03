@@ -1,0 +1,8 @@
+select top 10
+	transaction.tranId,
+	transaction.entity,
+	transaction.id
+from
+	transaction
+where transaction.entity = {{customer_id}} and substr(transaction.tranId,1,2)='SO'
+

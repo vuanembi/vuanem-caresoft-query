@@ -11,3 +11,8 @@ class CustomerResponse(BaseModel):
     date_of_birth: Optional[str]
     loyalty_points: Optional[str]
     loyalty_group: Optional[str]
+
+
+class OrderByCustomer(BaseModel):
+    id: Optional[int]
+    tranid: Optional[str]
