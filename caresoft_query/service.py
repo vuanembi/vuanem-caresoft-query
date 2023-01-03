@@ -7,7 +7,7 @@ ENVIRONMENT = Environment(loader=FileSystemLoader("./caresoft_query/templates"))
 
 
 def get_user_by_phone(phone: str) -> list:
-    sql = ENVIRONMENT.get_template("get_by_phone.sql.j2").render(phone=phone)
+    sql = ENVIRONMENT.get_template("get-customer-by-phone.sql.j2").render(phone=phone)
     with netsuite_session() as session:
         data = run_suiteql_query(session, sql)
     return [

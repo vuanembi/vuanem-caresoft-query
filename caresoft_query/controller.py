@@ -7,8 +7,8 @@ controller = APIRouter()
 
 
 @controller.get(
-    "/query/customer/{phone}",
-    response_model=list[CustomerResponse],
+    "/query/customer/",
+    response_model= list[CustomerResponse],
 )
 def get_customer(phone: str):
     return get_user_by_phone(phone)
