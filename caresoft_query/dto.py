@@ -13,6 +13,6 @@ class CustomerResponse(BaseModel):
     loyalty_group: Optional[str]
 
 
-class OrderByCustomer(BaseModel):
+class OrderBase(BaseModel):
     id: Optional[int]
     tranid: Optional[str]

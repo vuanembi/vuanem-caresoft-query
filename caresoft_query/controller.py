@@ -1,16 +1,15 @@
 from fastapi import APIRouter
 
-from caresoft_query.dto import CustomerResponse, OrderByCustomer
-from caresoft_query.service import get_customer_by_phone
-from caresoft_query.service import get_orders_by_customer
+from caresoft_query import dto, service
 
 controller = APIRouter()
 
 
-@controller.get("/query/customer/", response_model=list[CustomerResponse])
+@controller.get("/query/customer/", response_model=list[dto.CustomerResponse])
 def get_customer(phone: str):
-    return get_customer_by_phone(phone)
+    return service.get_customer_by_phone(phone)
 
-@controller.get("/query/order/", response_model=list[OrderByCustomer])
-def get_orders(customer_id: str):
-    return get_orders_by_customer(customer_id)
+
+@controller.get("/query/order/", response_model=list[dto.OrderBase])
+def get_orders(customer_id: int):
+    return service.get_orders_by_customer(customer_id)
