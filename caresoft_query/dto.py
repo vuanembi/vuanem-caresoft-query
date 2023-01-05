@@ -16,3 +16,14 @@ class CustomerResponse(BaseModel):
 class OrderBase(BaseModel):
     id: Optional[int]
     tranid: Optional[str]
+
+class Items(BaseModel):
+    sku: Optional[str]
+    quantity: Optional[int]
+    amount: Optional[float]
+
+class Order(BaseModel):
+    id: Optional[int]
+    tranid: Optional[str]
+    trandate: Optional[str]
+    items: list[Items]

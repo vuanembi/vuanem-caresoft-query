@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 
 from caresoft_query import dto, service
+from collections import defaultdict
 
 controller = APIRouter(tags=["Customer"])
 
@@ -25,3 +26,11 @@ def get_customer(phone: str):
 )
 def get_orders(customer_id: int):
     return service.get_orders_by_customer(customer_id)
+
+@controller.get(
+    "/query/order/{id}",
+    response_model=list[dto.Order],
+    responses={**responses},
+)
+def get_orders_(id: int):
+    return service.get_orders_by_id(id)

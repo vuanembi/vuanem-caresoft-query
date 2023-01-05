@@ -1,9 +1,12 @@
 from pathlib import Path
-
+import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
 from netsuite.service import query_suiteql
-from caresoft_query.dto import CustomerResponse, OrderBase
+from caresoft_query.dto import CustomerResponse, OrderBase, Order, Items
+from itertools import groupby
+from operator import itemgetter
+from collections import defaultdict
 
 ENVIRONMENT = Environment(loader=FileSystemLoader(f"{Path(__file__).parent}/templates"))
 
@@ -27,10 +30,39 @@ def get_customer_by_phone(phone: str) -> list:
     ]
 
 
-def get_orders_by_customer(customer_id: int) -> list:
+def get_orders_by_customer(customer_id: int) -> list[OrderBase]:
     sql = ENVIRONMENT.get_template("get-orders-by-customer.sql.j2").render(
         customer_id=customer_id
     )
     data = query_suiteql(sql)
 
     return [OrderBase(id=row.get("id"), tranid=row.get("tranid")) for row in data]
+
+
+def get_orders_by_id(id: int) -> list[Order]:
+    sql = ENVIRONMENT.get_template("get-orders-by-id.sql.j2").render(id=id)
+    data = query_suiteql(sql)
+    data = sorted(data, key=itemgetter("tranid", "trandate"))
+    result = defaultdict(list)
+    i = 0
+    tran_id = []
+    for key, value in groupby(data, key=itemgetter("tranid", "trandate")):
+        result[i].append(list(value))
+        tran_id.append(key)
+        i = i + 1
+    kq = list[Order]
+    kq = []
+    for a in range(i):
+        t = result[a]
+        res = list[Items]
+        res = [
+            Items(
+                sku=x.get("custitem_vncode_copy"),
+                quantity=x.get("quantity"),
+                amount=x.get("foreignamount"),
+            )
+            for x in t[0]
+        ]
+        tr = tran_id[a]
+        kq.append(Order(id=id, tranid=tr[0], trandate=tr[1], items=res))
+    return kq
