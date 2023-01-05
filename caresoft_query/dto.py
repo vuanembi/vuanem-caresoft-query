@@ -17,13 +17,15 @@ class OrderBase(BaseModel):
     id: Optional[int]
     tranid: Optional[str]
 
-class Items(BaseModel):
+
+class Item(BaseModel):
     sku: Optional[str]
     quantity: Optional[int]
     amount: Optional[float]
+
 
 class Order(BaseModel):
     id: Optional[int]
     tranid: Optional[str]
     trandate: Optional[str]
-    items: list[Items]
+    items: list[Item]
