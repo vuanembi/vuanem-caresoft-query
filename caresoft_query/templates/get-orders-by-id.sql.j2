@@ -1,9 +1,9 @@
 select 
     transaction.id,
     transaction.tranid,
-    item.custitem_vncode_copy,
-    transactionline.quantity,
-    transactionline.foreignAmount,
+    item.itemid,
+    transactionline.quantity*-1 as quantity,
+    transactionline.netAmount*-1 as netAmount,
     transaction.trandate
 from  
     (transaction join  transactionline on transaction.id = transactionline.transaction) 

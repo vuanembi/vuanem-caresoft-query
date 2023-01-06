@@ -1,5 +1,4 @@
 from pathlib import Path
-import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
 from netsuite.service import query_suiteql
@@ -57,9 +56,9 @@ def get_orders_by_id(id: int) -> list[Order]:
         res = list[Items]
         res = [
             Items(
-                sku=x.get("custitem_vncode_copy"),
+                sku=x.get("itemid"),
                 quantity=x.get("quantity"),
-                amount=x.get("foreignamount"),
+                amount=x.get("netamount"),
             )
             for x in t[0]
         ]
