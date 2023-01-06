@@ -1,21 +1,22 @@
-import os
-
-import dotenv
 from pydantic import BaseSettings
 
-dotenv.load_dotenv()
+
+class Settings(BaseSettings):
+    APP_URL: str
+
+    REDIS_HOST: str
+    REDIS_PASSWORD: str
+
+    NS_ACCOUNT_ID: str
+    NS_CONSUMER_KEY: str
+    NS_CONSUMER_SECRET: str
+    NS_ACCESS_TOKEN: str
+    NS_TOKEN_SECRET: str
+    NS_SUITETALK_URL: str
+    NS_RESTLET_URL: str
+
+    class Config:
+        env_file = ".env"
 
 
-class Settings:
-    APP_URL: str = os.getenv("APP_URL", "")
-
-    DB_URL: str = os.getenv("DB_URL", "")
-
-    REDIS_HOST: str = os.getenv("REDIS_HOST", "")
-    REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
-
-    ZALO_CLIENT_ID: str = "533162694613946571"
-    ZALO_CLIENT_SECRET: str = os.getenv("ZALO_CLIENT_SECRET", "")
-
-
-settings = Settings()
+settings = Settings()  # type: ignore

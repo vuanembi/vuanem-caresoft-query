@@ -1,22 +1,18 @@
-from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-load_dotenv()
+from caresoft_query.controller import controller as caresoft_query_controller
 
-from pathlib import Path
+app = FastAPI(
+    title="vuanem-caresoft-query",
+)
 
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-from zalo import zalo_controller
-
-
-app = FastAPI()
-app.include_router(zalo_controller.controller, prefix="/zalo")
-
-
-@app.get("/", response_class=HTMLResponse)
-def index(request: Request):
-    return Jinja2Templates(
-        directory=f"{Path(__file__).resolve().parent}/templates"
-    ).TemplateResponse("index.html", {"request": request})
+app.include_router(caresoft_query_controller)

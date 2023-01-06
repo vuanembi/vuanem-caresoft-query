@@ -10,9 +10,9 @@ on:
 concurrency: ${{ github.ref }}
 
 env:
-  IMAGE: us-docker.pkg.dev/voltaic-country-280607/gcr.io/vuanem-zalo-oa:${{ github.ref_name }}
-  APP_URL: https://vuanem-zalo-oa-${{ github.ref_name }}-lx3iji7qaq-uc.a.run.app
-  SERVICE: vuanem-zalo-oa-${{ github.ref_name }}
+  IMAGE: us-docker.pkg.dev/voltaic-country-280607/gcr.io/vuanem-caresoft-query:${{ github.ref_name }}
+  APP_URL: https://vuanem-caresoft-query-${{ github.ref_name }}-lx3iji7qaq-uc.a.run.app
+  SERVICE: vuanem-caresoft-query-${{ github.ref_name }}
   ENV_FILE: env.yaml
   GCP_SA: bivuanem@voltaic-country-280607.iam.gserviceaccount.com
 
@@ -38,6 +38,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v3
 
@@ -48,12 +49,16 @@ jobs:
       - run: |
           echo "APP_URL: ${{ env.APP_URL }}" >> ${{ env.ENV_FILE }}
 
-          echo "DB_URL: ${{ secrets.DB_URL }}" >> ${{ env.ENV_FILE }}
-
           echo "REDIS_HOST: ${{ secrets.REDIS_HOST }}" >> ${{ env.ENV_FILE }}
           echo "REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}" >> ${{ env.ENV_FILE }}
 
-          echo "ZALO_CLIENT_SECRET: ${{ secrets.ZALO_CLIENT_SECRET }}" >> ${{ env.ENV_FILE }}
+          echo "NS_ACCOUNT_ID: '${{ secrets.NS_ACCOUNT_ID }}'" >> ${{ env.ENV_FILE }}
+          echo "NS_CONSUMER_KEY: ${{ secrets.NS_CONSUMER_KEY }}" >> ${{ env.ENV_FILE }}
+          echo "NS_CONSUMER_SECRET: ${{ secrets.NS_CONSUMER_SECRET }}" >> ${{ env.ENV_FILE }}
+          echo "NS_ACCESS_TOKEN: ${{ secrets.NS_ACCESS_TOKEN }}" >> ${{ env.ENV_FILE }}
+          echo "NS_TOKEN_SECRET: ${{ secrets.NS_TOKEN_SECRET }}" >> ${{ env.ENV_FILE }}
+          echo "NS_SUITETALK_URL: ${{ secrets.NS_SUITETALK_URL }}" >> ${{ env.ENV_FILE }}
+          echo "NS_RESTLET_URL: ${{ secrets.NS_RESTLET_URL }}" >> ${{ env.ENV_FILE }}
 
       - run: >-
           gcloud run deploy ${{ env.SERVICE }}

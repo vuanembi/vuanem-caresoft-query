@@ -1,0 +1,17 @@
+select
+    customer.custentity_dob,
+    customer.custentity_tei_loyaltyremainingpointval as loyalty_points,
+    customer.datecreated,
+    customer.email,
+    customer.id,
+    customer.lastname,
+    customer.phone,
+    customrecord_tbt_loyalty_cust_grp.name as loyalty_group_name
+from
+    customer
+    left join customrecord_tbt_loyalty_cust_grp
+    on customer.custentity_tbt_loyalty_grp = customrecord_tbt_loyalty_cust_grp.id
+where
+    customer.phone = '{{phone}}'
+order by
+    datecreated asc
