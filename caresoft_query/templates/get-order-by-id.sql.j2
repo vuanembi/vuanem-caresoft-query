@@ -1,10 +1,10 @@
 select 
+    item.itemid,
     transaction.id,
     transaction.trandate,
     transaction.tranid,
-    transactionline.foreignamount,
-    transactionline.quantity,
-    item.custitem_vncode_copy
+    transactionline.netAmount*-1 as netAmount,
+    transactionline.quantity*-1 as quantity,
 from
     transaction
 inner join transactionline

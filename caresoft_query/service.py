@@ -1,7 +1,7 @@
 from operator import itemgetter
 from pathlib import Path
-import pandas as pd
 from jinja2 import Environment, FileSystemLoader
+from collections import defaultdict
 
 from netsuite.service import query_suiteql
 from caresoft_query.dto import CustomerResponse, OrderBase, Order, Item
@@ -60,12 +60,12 @@ def get_order_by_id(id: int) -> list[Order]:
     kq = []
     for a in range(i):
         t = result[a]
-        res = list[Items]
+        res = list[Item]
         res = [
-            Items(
-                sku=x.get("custitem_vncode_copy"),
+            Item(
+                sku=x.get("itemid"),
                 quantity=x.get("quantity"),
-                amount=x.get("foreignamount"),
+                amount=x.get("netamount"),
             )
             for x in t[0]
         ]
