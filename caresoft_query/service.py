@@ -1,7 +1,7 @@
 from operator import itemgetter
 from pathlib import Path
+
 from jinja2 import Environment, FileSystemLoader
-from collections import defaultdict
 
 from netsuite.service import query_suiteql
 from caresoft_query.dto import CustomerResponse, OrderBase, Order, Item
@@ -48,27 +48,24 @@ def get_order_by_id(id: int) -> list[Order]:
     sql = ENVIRONMENT.get_template("get-order-by-id.sql.j2").render(id=id)
 
     data = query_suiteql(sql)
-    data = sorted(data, key=itemgetter("tranid", "trandate"))
-    result = defaultdict(list)
-    i = 0
-    tran_id = []
-    for key, value in groupby(data, key=itemgetter("tranid", "trandate")):
-        result[i].append(list(value))
-        tran_id.append(key)
-        i = i + 1
-    kq = list[Order]
-    kq = []
-    for a in range(i):
-        t = result[a]
-        res = list[Item]
-        res = [
-            Item(
-                sku=x.get("itemid"),
-                quantity=x.get("quantity"),
-                amount=x.get("netamount"),
-            )
-            for x in t[0]
-        ]
-        tr = tran_id[a]
-        kq.append(Order(id=id, tranid=tr[0], trandate=tr[1], items=res))
-    return kq
+
+    group_key = itemgetter("id", "tranid", "trandate")
+
+    sorted_data = sorted(data, key=group_key)  # type: ignore
+
+    return [
+        Order(
+            id=group[0],
+            tranid=group[1],
+            trandate=group[2],
+            items=[
+                Item(
+                    sku=value.get("itemid"),
+                    quantity=value.get("quantity"),
+                    amount=value.get("netamount"),
+                )
+                for value in values
+            ],
+        )
+        for group, values in groupby(sorted_data, key=group_key)  # type: ignore
+    ]

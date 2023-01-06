@@ -17,7 +17,7 @@ def test_get_orders_by_customer():
     assert len(result) > 0
 
 
-def test_get_orders_by_id():
+def test_get_order_by_id():
     id = 9020111
     result = get_order_by_id(id)
     assert len(result) > 0

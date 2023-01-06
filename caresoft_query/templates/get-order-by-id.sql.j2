@@ -3,8 +3,8 @@ select
     transaction.id,
     transaction.trandate,
     transaction.tranid,
-    transactionline.netAmount*-1 as netAmount,
-    transactionline.quantity*-1 as quantity,
+    transactionline.netamount * -1 as netamount,
+    transactionline.quantity * -1 as quantity,
 from
     transaction
 inner join transactionline
