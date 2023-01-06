@@ -15,7 +15,7 @@ def create_client() -> OAuth1Client:
         token_secret=settings.NS_TOKEN_SECRET,
         realm=settings.NS_ACCOUNT_ID,
         force_include_body=True,
-        base_url=settings.NS_RESTLET_URL,
+        base_url=settings.NS_SUITETALK_URL,
     )
 
 

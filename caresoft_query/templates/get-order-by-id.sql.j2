@@ -1,0 +1,17 @@
+select 
+    item.itemid,
+    transaction.id,
+    transaction.trandate,
+    transaction.tranid,
+    transactionline.netamount * -1 as netamount,
+    transactionline.quantity * -1 as quantity,
+from
+    transaction
+inner join transactionline
+    on transaction.id = transactionline.transaction
+inner join item
+    on transactionline.item = item.id 
+where
+    1 = 1
+    and transaction.id = {{id}} 
+    and substr(transaction.tranid, 1, 2) = 'SO'
