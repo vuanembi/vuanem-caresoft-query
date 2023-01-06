@@ -1,11 +1,11 @@
+from operator import itemgetter
 from pathlib import Path
+import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
 from netsuite.service import query_suiteql
-from caresoft_query.dto import CustomerResponse, OrderBase, Order, Items
+from caresoft_query.dto import CustomerResponse, OrderBase, Order, Item
 from itertools import groupby
-from operator import itemgetter
-from collections import defaultdict
 
 ENVIRONMENT = Environment(loader=FileSystemLoader(f"{Path(__file__).parent}/templates"))
 
@@ -35,11 +35,18 @@ def get_orders_by_customer(customer_id: int) -> list[OrderBase]:
     )
     data = query_suiteql(sql)
 
-    return [OrderBase(id=row.get("id"), tranid=row.get("tranid")) for row in data]
+    return [
+        OrderBase(
+            id=row.get("id"),
+            tranid=row.get("tranid"),
+        )
+        for row in data
+    ]
 
 
-def get_orders_by_id(id: int) -> list[Order]:
-    sql = ENVIRONMENT.get_template("get-orders-by-id.sql.j2").render(id=id)
+def get_order_by_id(id: int) -> list[Order]:
+    sql = ENVIRONMENT.get_template("get-order-by-id.sql.j2").render(id=id)
+
     data = query_suiteql(sql)
     data = sorted(data, key=itemgetter("tranid", "trandate"))
     result = defaultdict(list)
@@ -56,9 +63,9 @@ def get_orders_by_id(id: int) -> list[Order]:
         res = list[Items]
         res = [
             Items(
-                sku=x.get("itemid"),
+                sku=x.get("custitem_vncode_copy"),
                 quantity=x.get("quantity"),
-                amount=x.get("netamount"),
+                amount=x.get("foreignamount"),
             )
             for x in t[0]
         ]
